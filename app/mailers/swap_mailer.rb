@@ -1,7 +1,7 @@
 class SwapMailer < ApplicationMailer
   def welcome(user)
     @user = user
-    mail(to: @user.email, subject: "Bienvenue sur SkillSwap ! 🎉")
+    mail(to: @user.email, subject: "Bienvenue sur ShareSkills ! 🎉")
   end
 
   def swap_proposed(swap)

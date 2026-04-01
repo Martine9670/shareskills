@@ -172,3 +172,23 @@
     flex: 1;
     justify-content: center;
 }
+
+/* Modale de confirmation */
+.confirm-dialog {
+    max-width: 380px;
+}
+
+.confirm-message {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+}
+
+/* Responsive modales */
+@media (max-width: 768px) {
+    .modal        { margin: var(--space-sm); }
+    .modal-body   { padding: var(--space-md); }
+    .modal-header { padding: var(--space-sm) var(--space-md); }
+    .modal-footer { padding: 0 var(--space-md) var(--space-md); flex-direction: column; }
+    .duration-options { flex-wrap: wrap; }
+}

@@ -37,6 +37,7 @@
             <%= f.check_box :is_admin, class: "form-checkbox" %>
             <%= f.label :is_admin, "Administrateur", class: "form-label" %>
         </div>
-        <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+        <%= f.submit "Enregistrer", class: "btn btn-primary",
+            data: { turbo_confirm: "Confirmer les modifications apportées à #{@user.name} ?" } %>
     <% end %>
 </div>

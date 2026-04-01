@@ -191,4 +191,6 @@
     .skills-section  { grid-template-columns: 1fr; }
     .profile-actions { position: static; margin-top: var(--space-sm); }
     .profile-body    { padding: 0 var(--space-md) var(--space-md); }
+    .profile-meta    { flex-wrap: wrap; gap: var(--space-xs); }
+    .profile-name    { font-size: 1.25rem; }
 }

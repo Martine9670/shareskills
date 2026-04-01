@@ -251,5 +251,7 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .users-grid { grid-template-columns: 1fr; }
+    .users-grid  { grid-template-columns: 1fr; }
+    .search-box  { position: static; }
+    .user-footer { flex-wrap: wrap; gap: var(--space-xs); }
 }

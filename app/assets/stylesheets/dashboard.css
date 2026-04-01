@@ -259,7 +259,9 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid     { grid-template-columns: repeat(2, 1fr); }
     .dashboard-grid { grid-template-columns: 1fr; }
-    main           { margin-bottom: 100px; }
+    .activity-item  { gap: var(--space-xs); flex-wrap: wrap; }
+    .activity-value { width: 100%; text-align: left; }
+    .activity-list  { padding: var(--space-md); }
 }

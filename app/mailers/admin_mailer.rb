@@ -11,7 +11,7 @@ class AdminMailer < ApplicationMailer
     @message = message
     mail(
       to:      [@user1.email, @user2.email],
-      subject: "SkillSwap vous met en relation : #{@user1.name} ↔ #{@user2.name}"
+      subject: "ShareSkills vous met en relation : #{@user1.name} ↔ #{@user2.name}"
     )
   end
 end

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "noreply@skillswap.fr"
+  default from: "noreply@shareskills.fr"
   layout "mailer"
 end

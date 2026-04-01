@@ -74,6 +74,19 @@ main {
     min-height: 100vh;
 }
 
+/* Responsive global */
+@media (max-width: 768px) {
+    body { overflow-x: hidden; }
+
+    main {
+        padding-top: 70px;
+        padding-bottom: 90px; /* espace pour la nav mobile */
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+}
+
 /* Animations globales */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }

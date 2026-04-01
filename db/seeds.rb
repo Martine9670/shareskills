@@ -25,7 +25,7 @@ def s(name) = Skill.find_by!(name: name)
 # ── Admin ─────────────────────────────────────────────────────────────────────
 puts "Création de l'admin..."
 User.create!(
-  name: "Admin SkillSwap", email: "admin@skillswap.fr",
+  name: "Admin ShareSkills", email: "admin@shareskills.fr",
   password: "password123", location: "Lyon, France",
   bio: "Administrateur de la plateforme.", is_admin: true, credits_minutes: 999
 )
@@ -87,6 +87,6 @@ Swap.create!(proposer: marie,  receiver: sophie, skill: s("React"),
 puts ""
 puts "✓ Seeds terminés !"
 puts "─────────────────────────────────────"
-puts "Admin  : admin@skillswap.fr  / password123"
+puts "Admin  : admin@shareskills.fr  / password123"
 puts "User   : sophie@example.com  / password123"
 puts "─────────────────────────────────────"

@@ -22,7 +22,7 @@
                 <td class="admin-actions">
                     <%= link_to "Modifier", edit_admin_skill_path(skill), class: "btn btn-sm" %>
                     <%= button_to "Supprimer", admin_skill_path(skill), method: :delete,
-                        data: { confirm: "Supprimer #{skill.name} ?" },
+                        form: { data: { turbo_confirm: "Supprimer la compétence \"#{skill.name}\" ? Cette action est irréversible." } },
                         class: "btn btn-sm btn-danger" %>
                 </td>
             </tr>

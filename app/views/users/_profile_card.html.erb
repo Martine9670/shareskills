@@ -37,7 +37,7 @@
                             <% if user == current_user %>
                                 <%= button_to "×", user_skill_path(us), method: :delete,
                                     class: "skill-remove-btn",
-                                    data: { confirm: "Retirer #{us.skill.name} ?" } %>
+                                    form: { data: { turbo_confirm: "Retirer \"#{us.skill.name}\" de tes compétences ?" } } %>
                             <% end %>
                         </span>
                     <% end %>
@@ -89,7 +89,7 @@
                             <% if user == current_user %>
                                 <%= button_to "×", user_skill_path(us), method: :delete,
                                     class: "skill-remove-btn",
-                                    data: { confirm: "Retirer #{us.skill.name} ?" } %>
+                                    form: { data: { turbo_confirm: "Retirer \"#{us.skill.name}\" de tes compétences ?" } } %>
                             <% end %>
                         </span>
                     <% end %>

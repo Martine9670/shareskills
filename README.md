@@ -159,8 +159,8 @@ Le JS utilise l'importmap de Rails (pas de webpack/esbuild). Les fonctions inter
 
 ```
 app/javascript/
-  ├── application.js    ← point d'entrée (importe Turbo, Stimulus, skillswap)
-  └── skillswap.js      ← logique UI : showView(), openModal(), toggleSkillForm()...
+  ├── application.js    ← point d'entrée (importe Turbo, Stimulus, shareskills)
+  └── shareskills.js      ← logique UI : showView(), openModal(), toggleSkillForm()...
 ```
 
 Fonctions principales :

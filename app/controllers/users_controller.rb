@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       SwapMailer.welcome(@user).deliver_later
-      flash[:notice] = "Bienvenue sur SkillSwap, #{@user.name} ! 🎉"
+      flash[:notice] = "Bienvenue sur ShareSkills, #{@user.name} ! 🎉"
       redirect_to dashboard_path
     else
       render :new, status: :unprocessable_entity

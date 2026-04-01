@@ -305,6 +305,44 @@ function showNotification(message) {
     setTimeout(() => notif.classList.remove('show'), 4000);
 }
 
+// ===========================
+// MODALE DE CONFIRMATION CUSTOM
+// Doit être défini au niveau module (synchrone) pour que Turbo le prenne en compte
+// ===========================
+
+function showConfirm(message) {
+    return new Promise((resolve) => {
+        const overlay = document.getElementById('confirm-modal');
+        if (!overlay) { resolve(window.confirm(message)); return; }
+
+        document.getElementById('confirm-modal-message').textContent = message;
+        overlay.classList.add('active');
+
+        const btnOk     = document.getElementById('confirm-modal-ok');
+        const btnCancel = document.getElementById('confirm-modal-cancel');
+
+        function close(result) {
+            overlay.classList.remove('active');
+            btnOk.removeEventListener('click', onOk);
+            btnCancel.removeEventListener('click', onCancel);
+            document.removeEventListener('keydown', onKey);
+            resolve(result);
+        }
+
+        const onOk     = () => close(true);
+        const onCancel = () => close(false);
+        const onKey    = (e) => { if (e.key === 'Escape') close(false); };
+
+        btnOk.addEventListener('click', onOk);
+        btnCancel.addEventListener('click', onCancel);
+        document.addEventListener('keydown', onKey);
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) close(false); }, { once: true });
+    });
+}
+
+// Définition synchrone au chargement du module — avant tout event Turbo
+Turbo.config.confirmMethod = (message) => showConfirm(message);
+
 // Exposition globale pour les attributs onclick dans le HTML
 window.showView        = showView;
 window.filterByCategory = filterByCategory;

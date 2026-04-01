@@ -69,7 +69,7 @@
 
 /* Main */
 .admin-main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: var(--space-lg);
 }
@@ -146,7 +146,17 @@
     object-fit: cover;
 }
 
-.admin-actions { display: flex; gap: 6px; }
+.admin-actions {
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+    width: 1%;
+}
+
+.admin-actions form {
+    display: inline;
+    margin: 0;
+}
 
 /* Formulaire admin */
 .admin-form-card {
@@ -225,6 +235,19 @@ textarea.admin-input {
     display: flex;
     gap: var(--space-sm);
     margin-top: var(--space-lg);
+}
+
+/* Responsive admin */
+@media (max-width: 900px) {
+    .admin-nav { flex-wrap: wrap; height: auto; padding: var(--space-xs) var(--space-sm); gap: var(--space-xs); }
+    .admin-nav-links { order: 3; width: 100%; padding-bottom: var(--space-xs); }
+    .admin-main { padding: var(--space-md); }
+}
+
+@media (max-width: 768px) {
+    .admin-table-wrapper { overflow-x: auto; }
+    .admin-table { min-width: 600px; }
+    .admin-form-card { max-width: 100%; }
 }
 
 /* Lien admin dans la navbar principale */
