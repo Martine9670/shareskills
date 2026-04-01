@@ -1,0 +1,125 @@
+<!-- HERO -->
+<section class="landing-hero">
+    <div class="landing-hero-inner">
+        <div class="landing-badge">✨ Plateforme d'échange de compétences</div>
+        <h1 class="landing-title">Échangez ce que vous<br>savez, apprenez ce que<br>vous voulez.</h1>
+        <p class="landing-subtitle">
+            SkillSwap connecte des personnes qui ont des compétences à partager.<br>
+            Enseigne ce que tu maîtrises, apprends ce dont tu as besoin — sans argent.
+        </p>
+        <div class="landing-cta">
+            <%= link_to "Commencer gratuitement →", signup_path, class: "btn btn-primary btn-lg" %>
+            <%= link_to "Se connecter", login_path, class: "btn btn-lg" %>
+        </div>
+        <p class="landing-stats-line">
+            <strong><%= User.count %></strong> membres ·
+            <strong><%= Skill.count %></strong> compétences ·
+            <strong><%= Swap.where(status: "accepted").count %></strong> swaps réalisés
+        </p>
+    </div>
+    <div class="landing-hero-visual">
+        <div class="landing-card-float landing-card-1">
+            <div class="landing-card-icon">💻</div>
+            <div>
+                <div class="landing-card-name">Sophie enseigne</div>
+                <div class="landing-card-skill">JavaScript · Expert</div>
+            </div>
+        </div>
+        <div class="landing-card-float landing-card-2">
+            <div class="landing-card-icon">🎵</div>
+            <div>
+                <div class="landing-card-name">Thomas enseigne</div>
+                <div class="landing-card-skill">Guitare · Expert</div>
+            </div>
+        </div>
+        <div class="landing-card-float landing-card-3">
+            <div class="landing-card-icon">🍳</div>
+            <div>
+                <div class="landing-card-name">Marie enseigne</div>
+                <div class="landing-card-skill">Cuisine italienne · Expert</div>
+            </div>
+        </div>
+        <div class="landing-swap-badge">
+            <span>⇄</span> Swap en cours
+        </div>
+    </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="landing-section">
+    <div class="landing-section-inner">
+        <h2 class="landing-section-title">Comment ça marche ?</h2>
+        <div class="landing-steps">
+            <div class="landing-step">
+                <div class="landing-step-number">01</div>
+                <div class="landing-step-icon">👤</div>
+                <h3>Crée ton profil</h3>
+                <p>Indique ce que tu sais faire et ce que tu veux apprendre.</p>
+            </div>
+            <div class="landing-step-arrow">→</div>
+            <div class="landing-step">
+                <div class="landing-step-number">02</div>
+                <div class="landing-step-icon">🔍</div>
+                <h3>Trouve un match</h3>
+                <p>Recherche par compétence ou catégorie et explore les profils.</p>
+            </div>
+            <div class="landing-step-arrow">→</div>
+            <div class="landing-step">
+                <div class="landing-step-number">03</div>
+                <div class="landing-step-icon">⇄</div>
+                <h3>Propose un swap</h3>
+                <p>Envoie une demande d'échange, choisis la durée et c'est parti !</p>
+            </div>
+            <div class="landing-step-arrow">→</div>
+            <div class="landing-step">
+                <div class="landing-step-number">04</div>
+                <div class="landing-step-icon">🏆</div>
+                <h3>Grandis ensemble</h3>
+                <p>Gagne des crédits, accumule des swaps et développe tes compétences.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATÉGORIES -->
+<section class="landing-section landing-section-alt">
+    <div class="landing-section-inner">
+        <h2 class="landing-section-title">Des compétences dans tous les domaines</h2>
+        <div class="landing-categories">
+            <div class="landing-cat landing-cat-tech">
+                <span class="landing-cat-icon">💻</span>
+                <span class="landing-cat-label">Tech</span>
+                <span class="landing-cat-count"><%= Skill.where(category: "tech").count %> compétences</span>
+            </div>
+            <div class="landing-cat landing-cat-music">
+                <span class="landing-cat-icon">🎵</span>
+                <span class="landing-cat-label">Musique</span>
+                <span class="landing-cat-count"><%= Skill.where(category: "music").count %> compétences</span>
+            </div>
+            <div class="landing-cat landing-cat-cooking">
+                <span class="landing-cat-icon">🍳</span>
+                <span class="landing-cat-label">Cuisine</span>
+                <span class="landing-cat-count"><%= Skill.where(category: "cooking").count %> compétences</span>
+            </div>
+            <div class="landing-cat landing-cat-design">
+                <span class="landing-cat-icon">🎨</span>
+                <span class="landing-cat-label">Design</span>
+                <span class="landing-cat-count"><%= Skill.where(category: "design").count %> compétences</span>
+            </div>
+            <div class="landing-cat landing-cat-language">
+                <span class="landing-cat-icon">🗣</span>
+                <span class="landing-cat-label">Langues</span>
+                <span class="landing-cat-count"><%= Skill.where(category: "language").count %> compétences</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="landing-section landing-cta-section">
+    <div class="landing-section-inner landing-cta-inner">
+        <h2 class="landing-cta-title">Prêt à échanger ?</h2>
+        <p class="landing-cta-subtitle">Rejoins la communauté SkillSwap et commence avec <strong>120 minutes</strong> de crédits offerts.</p>
+        <%= link_to "Créer mon compte gratuitement →", signup_path, class: "btn btn-primary btn-lg" %>
+    </div>
+</section>

@@ -1,0 +1,171 @@
+/* ===========================
+   NAVBAR — navigation desktop & mobile
+   =========================== */
+
+.navbar {
+    background: var(--white);
+    border-bottom: var(--border-thick);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 4px 4px 0 rgba(45, 52, 54, 0.1);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 var(--space-lg);
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--peach);
+    border: var(--border-thick);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    box-shadow: 3px 3px 0 var(--charcoal);
+    transition: all 0.2s ease;
+}
+
+.logo:hover .logo-icon {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--charcoal);
+}
+
+.logo-text {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--charcoal);
+}
+
+/* Liens de navigation desktop */
+.nav-links {
+    display: flex;
+    gap: var(--space-xs);
+}
+
+.nav-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--border-thin);
+    background: transparent;
+    color: var(--charcoal);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-btn:hover {
+    background: var(--beige);
+    transform: translateY(-1px);
+}
+
+.nav-btn.active {
+    background: var(--charcoal);
+    color: var(--white);
+    border-color: var(--charcoal);
+}
+
+/* Partie droite : crédits + avatar */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.credit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--lemon);
+    border: var(--border-thick);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 2px 2px 0 var(--charcoal);
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: var(--border-thick);
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.05) rotate(3deg);
+}
+
+/* Navigation mobile */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: var(--border-thick);
+    padding: var(--space-sm);
+    justify-content: space-around;
+    z-index: 1000;
+}
+
+.mobile-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: var(--space-xs);
+}
+
+.mobile-btn.active {
+    color: var(--charcoal);
+}
+
+.mobile-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links  { display: none; }
+    .mobile-nav { display: flex; }
+}

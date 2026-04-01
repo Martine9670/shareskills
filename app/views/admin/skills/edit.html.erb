@@ -1,0 +1,5 @@
+<div class="admin-header">
+    <h1>Modifier "<%= @skill.name %>"</h1>
+    <%= link_to "← Retour", admin_skills_path, class: "btn btn-sm" %>
+</div>
+<%= render "form", skill: @skill %>

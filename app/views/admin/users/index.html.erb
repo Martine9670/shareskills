@@ -1,0 +1,43 @@
+<div class="admin-header">
+    <h1>Utilisateurs <span class="admin-count"><%= @users.count %></span></h1>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Ville</th>
+                <th>Crédits</th>
+                <th>Swaps</th>
+                <th>Admin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+            <tr>
+                <td>
+                    <div class="admin-user-cell">
+                        <img src="<%= user.avatar_url %>" class="admin-avatar" alt="">
+                        <%= user.name %>
+                    </div>
+                </td>
+                <td><%= user.email %></td>
+                <td><%= user.location %></td>
+                <td><%= user.credits_minutes %> min</td>
+                <td><%= user.swaps_count %></td>
+                <td><%= user.is_admin? ? "✓" : "—" %></td>
+                <td class="admin-actions">
+                    <%= link_to "Modifier", edit_admin_user_path(user), class: "btn btn-sm" %>
+                    <%= link_to "Contacter", new_admin_message_path(user_id: user.id), class: "btn btn-sm" %>
+                    <%= button_to "Supprimer", admin_user_path(user), method: :delete,
+                        data: { confirm: "Supprimer #{user.name} ?" },
+                        class: "btn btn-sm btn-danger" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

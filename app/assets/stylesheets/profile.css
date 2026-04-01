@@ -1,0 +1,194 @@
+/* ===========================
+   PROFILE — en-tête profil, compétences, boutons, historique
+   =========================== */
+
+/* En-tête de profil */
+.profile-header {
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-lg);
+    box-shadow: 4px 4px 0 rgba(45, 52, 54, 0.1);
+}
+
+.profile-cover {
+    height: 120px;
+    background: linear-gradient(135deg, var(--peach) 0%, var(--lavender) 50%, var(--sky) 100%);
+    position: relative;
+}
+
+.profile-cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.1) 20px
+    );
+}
+
+.profile-body {
+    padding: 0 var(--space-lg) var(--space-lg);
+    position: relative;
+}
+
+/* Rangée avatar / bouton */
+.profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: var(--border-thick);
+    object-fit: cover;
+    margin-top: -60px;
+    background: var(--white);
+    position: relative;
+    z-index: 2;
+    box-shadow: 4px 4px 0 var(--charcoal);
+}
+
+.profile-actions {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-lg);
+}
+
+/* Boutons génériques */
+.btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    padding: 10px 20px;
+    border: var(--border-thick);
+    background: var(--white);
+    color: var(--charcoal);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--charcoal);
+}
+
+.btn:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+}
+
+.btn-primary {
+    background: var(--charcoal);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--charcoal);
+    box-shadow: 3px 3px 0 var(--gray-light);
+}
+
+/* Infos profil */
+.profile-info {
+    margin-top: var(--space-md);
+}
+
+.profile-name {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-xs);
+}
+
+.profile-bio {
+    color: var(--gray);
+    margin-bottom: var(--space-sm);
+}
+
+.profile-meta {
+    display: flex;
+    gap: var(--space-md);
+    color: var(--gray);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-md);
+}
+
+/* Section compétences */
+.skills-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+}
+
+.skills-box {
+    background: var(--cream);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+}
+
+.skills-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+    border: var(--border-thick);
+    border-radius: 20px;
+    background: var(--white);
+    font-weight: 600;
+}
+
+.skill-item.teach { background: var(--lavender); }
+.skill-item.learn { background: var(--peach); }
+
+.add-btn {
+    border-style: dashed;
+    color: var(--gray);
+    background: transparent;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: var(--white);
+    color: var(--charcoal);
+}
+
+/* Historique (carte générique) */
+.history-title {
+    margin-bottom: var(--space-md);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .skills-section  { grid-template-columns: 1fr; }
+    .profile-actions { position: static; margin-top: var(--space-sm); }
+    .profile-body    { padding: 0 var(--space-md) var(--space-md); }
+}

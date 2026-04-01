@@ -1,0 +1,63 @@
+<%= render "profile_card", user: @user, editable: false %>
+
+<% unless @user == current_user %>
+<div class="card">
+    <h3 class="history-title">Proposer un Swap</h3>
+    <% teach = @user.teach_skills %>
+    <% if teach.any? %>
+        <%= form_with url: swaps_path, method: :post, class: "swap-form" do |f| %>
+            <%= hidden_field_tag :receiver_id, @user.id %>
+
+            <div class="form-group">
+                <label class="form-label">Compétence souhaitée</label>
+                <select name="skill_id" class="form-select">
+                    <% teach.each do |us| %>
+                        <option value="<%= us.skill.id %>"><%= us.skill.name %> (<%= us.level %>)</option>
+                    <% end %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Durée</label>
+                <div class="duration-options">
+                    <% [30, 60, 90, 120].each do |d| %>
+                        <label class="duration-label <%= 'active' if d == 60 %>">
+                            <input type="radio" name="duration" value="<%= d %>" <%= "checked" if d == 60 %>>
+                            <%= d %> min
+                        </label>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Message (optionnel)</label>
+                <textarea name="message" class="form-textarea"
+                          placeholder="Présentez-vous et expliquez ce que vous souhaitez apprendre..."></textarea>
+            </div>
+
+            <%= f.submit "Proposer le Swap ✓", class: "btn btn-primary" %>
+        <% end %>
+    <% else %>
+        <p class="text-muted">Cet utilisateur n'a pas encore déclaré de compétences à enseigner.</p>
+    <% end %>
+</div>
+<% end %>
+
+<% if @swaps.any? %>
+<div class="card">
+    <h3 class="history-title">Historique</h3>
+    <% @swaps.each do |swap| %>
+    <% type = swap.proposer_id == @user.id ? "given" : "received" %>
+    <div class="activity-item">
+        <div class="activity-icon <%= type %>"><%= type == "received" ? "←" : "→" %></div>
+        <div class="activity-content">
+            <div class="activity-title"><%= swap.skill.name %></div>
+            <div class="activity-meta"><%= swap.created_at.strftime("%d %b %Y") %> • <span class="status-<%= swap.status %>"><%= swap.status %></span></div>
+        </div>
+        <div class="activity-value <%= type %>">
+            <%= type == "received" ? "+#{swap.duration}" : "-#{swap.duration}" %> min
+        </div>
+    </div>
+    <% end %>
+</div>
+<% end %>

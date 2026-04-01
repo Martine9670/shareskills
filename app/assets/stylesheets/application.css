@@ -1,0 +1,17 @@
+/*
+ * Manifest CSS — SkillSwap
+ * Les fichiers sont chargés dans cet ordre (cascade CSS)
+ */
+
+@import "base.css";
+@import "utils.css";
+@import "navbar.css";
+@import "dashboard.css";
+@import "search.css";
+@import "profile.css";
+@import "modal.css";
+@import "notification.css";
+@import "auth.css";
+@import "admin.css";
+@import "footer.css";
+@import "landing.css";

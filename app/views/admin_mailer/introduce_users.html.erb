@@ -1,0 +1,27 @@
+<h2>Bonjour <%= @user1.name %> et <%= @user2.name %>,</h2>
+<p>L'équipe SkillSwap pense que vous pourriez avoir beaucoup à vous apporter mutuellement !</p>
+<div style="display: flex; gap: 24px; margin: 24px 0;">
+  <div style="flex: 1; border: 2px solid #2d3436; border-radius: 8px; padding: 16px;">
+    <strong><%= @user1.name %></strong><br>
+    <span style="color: #636e72;"><%= @user1.email %></span>
+    <% if @user1.teach_skills.any? %>
+      <p style="margin-top: 8px; font-size: 0.9em;">Enseigne : <%= @user1.teach_skills.map { |us| us.skill.name }.join(", ") %></p>
+    <% end %>
+  </div>
+  <div style="display: flex; align-items: center; font-size: 1.5rem;">⇄</div>
+  <div style="flex: 1; border: 2px solid #2d3436; border-radius: 8px; padding: 16px;">
+    <strong><%= @user2.name %></strong><br>
+    <span style="color: #636e72;"><%= @user2.email %></span>
+    <% if @user2.teach_skills.any? %>
+      <p style="margin-top: 8px; font-size: 0.9em;">Enseigne : <%= @user2.teach_skills.map { |us| us.skill.name }.join(", ") %></p>
+    <% end %>
+  </div>
+</div>
+<% if @message.present? %>
+  <p>Message de l'équipe :</p>
+  <blockquote style="border-left: 4px solid #ccc; padding-left: 16px; margin: 16px 0; color: #555;">
+    <%= simple_format(@message) %>
+  </blockquote>
+<% end %>
+<p>N'hésitez pas à vous contacter directement sur la plateforme pour proposer un swap !</p>
+<p>L'équipe SkillSwap</p>

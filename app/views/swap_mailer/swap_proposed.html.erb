@@ -1,0 +1,7 @@
+<h2>Nouvelle proposition de swap !</h2>
+<p><strong><%= @proposer.name %></strong> souhaite apprendre <strong><%= @skill.name %></strong> avec vous.</p>
+<p><strong>Durée :</strong> <%= @swap.duration %> minutes</p>
+<% if @swap.message.present? %>
+<p><strong>Message :</strong> <%= @swap.message %></p>
+<% end %>
+<p>Connectez-vous pour accepter ou refuser cette proposition.</p>

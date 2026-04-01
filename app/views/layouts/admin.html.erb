@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — SkillSwap</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+</head>
+<body class="admin-body">
+
+    <nav class="admin-nav">
+        <div class="admin-nav-brand">
+            <span class="logo-icon">S</span>
+            <span class="logo-text">Admin</span>
+        </div>
+        <div class="admin-nav-links">
+            <%= link_to "👥 Utilisateurs", admin_users_path, class: "admin-nav-link" %>
+            <%= link_to "🏷 Compétences",  admin_skills_path, class: "admin-nav-link" %>
+            <%= link_to "✉ Messages",      new_admin_message_path, class: "admin-nav-link" %>
+        </div>
+        <div class="admin-nav-right">
+            <%= link_to "← Retour au site", root_path, class: "btn btn-sm" %>
+            <%= button_to "Déconnexion", logout_path, method: :delete, class: "btn btn-sm" %>
+        </div>
+    </nav>
+
+    <main class="admin-main">
+        <% if flash[:notice] %>
+            <div class="flash flash-notice"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+            <div class="flash flash-alert"><%= flash[:alert] %></div>
+        <% end %>
+        <%= yield %>
+    </main>
+
+</body>
+</html>

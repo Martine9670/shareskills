@@ -1,0 +1,190 @@
+<!-- VUE DASHBOARD -->
+<section id="view-dashboard" class="view-section <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>">
+    <div class="dashboard-intro">
+        <h1 class="dashboard-title">Bonjour, <%= current_user.name.split.first %> !</h1>
+        <p class="dashboard-subtitle">Vous avez <strong><%= current_user.credits_minutes %> minutes</strong> de crédits à utiliser</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">⏱</div>
+            <div class="stat-value"><%= current_user.credits_minutes %></div>
+            <div class="stat-label">minutes disponibles</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">✓</div>
+            <div class="stat-value"><%= current_user.swaps_count %></div>
+            <div class="stat-label">swaps réalisés</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-value"><%= @pending_swaps.count %></div>
+            <div class="stat-label">en attente</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-value"><%= current_user.teach_skills.count %></div>
+            <div class="stat-label">compétences</div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Demandes de swap en attente -->
+        <% if @pending_swaps.any? %>
+        <div class="activity-list">
+            <h3 class="chart-title">
+                <span>⏳</span>
+                Demandes reçues
+            </h3>
+            <% @pending_swaps.each do |swap| %>
+            <div class="activity-item">
+                <img src="<%= swap.proposer.avatar_url %>" class="user-avatar" style="width:40px;height:40px;" alt="">
+                <div class="activity-content">
+                    <div class="activity-title"><strong><%= swap.proposer.name %></strong> veut apprendre <%= swap.skill.name %></div>
+                    <div class="activity-meta"><%= swap.duration %> min • <%= swap.message.presence || "Pas de message" %></div>
+                </div>
+                <div class="activity-actions">
+                    <%= button_to "✓", swap_path(swap), method: :patch,
+                        params: { action_type: "accept" },
+                        class: "btn btn-primary btn-sm" %>
+                    <%= button_to "✗", swap_path(swap), method: :patch,
+                        params: { action_type: "reject" },
+                        class: "btn btn-sm" %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+        <% end %>
+
+        <!-- Activité récente -->
+        <div class="activity-list">
+            <h3 class="chart-title mb-0">
+                <span>⚡</span>
+                Activité récente
+            </h3>
+            <% if @recent_swaps.any? %>
+                <% @recent_swaps.each do |swap| %>
+                <% type = swap.proposer_id == current_user.id ? "given" : "received" %>
+                <div class="activity-item">
+                    <div class="activity-icon <%= type %>"><%= type == "received" ? "←" : "→" %></div>
+                    <div class="activity-content">
+                        <div class="activity-title">
+                            <%= type == "received" ? "De #{swap.proposer.name}" : "À #{swap.receiver.name}" %>
+                        </div>
+                        <div class="activity-meta"><%= swap.skill.name %> • <%= swap.duration %> min •
+                            <span class="status-<%= swap.status %>"><%= swap.status %></span>
+                        </div>
+                    </div>
+                    <div class="activity-value <%= type %>">
+                        <%= type == "received" ? "+#{swap.duration}" : "-#{swap.duration}" %> min
+                    </div>
+                </div>
+                <% end %>
+            <% else %>
+                <div class="empty-state">
+                    <div class="empty-icon">⚡</div>
+                    <p class="text-muted">Aucune activité pour l'instant.<br>Recherchez des utilisateurs pour proposer un swap !</p>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</section>
+
+<!-- VUE RECHERCHE -->
+<section id="view-search" class="view-section <%= 'active' if params[:search].present? || params[:category].present? || params[:view] == 'search' %>">
+    <%= form_with url: dashboard_path, method: :get, data: { turbo: false }, class: "search-box" do |f| %>
+        <%= f.hidden_field :view, value: "search" %>
+        <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <%= f.text_field :search, value: @search,
+                class: "search-input",
+                placeholder: "Rechercher une compétence (JavaScript, Guitare...)" %>
+        </div>
+        <div class="category-filters">
+            <%= link_to "Toutes", dashboard_path(view: "search", search: @search),
+                class: "filter-btn #{'active' if @category.blank?}",
+                data: { turbo: false } %>
+            <% Skill::CATEGORIES.each do |key, label| %>
+                <%= link_to label, dashboard_path(view: "search", search: @search, category: key),
+                    class: "filter-btn #{key} #{'active' if @category == key}",
+                    data: { turbo: false } %>
+            <% end %>
+        </div>
+    <% end %>
+
+    <% if @users.any? %>
+        <div class="users-grid">
+            <% @users.each do |user| %>
+            <div class="user-card">
+                <div class="user-header">
+                    <img src="<%= user.avatar_url %>" alt="<%= user.name %>" class="user-avatar">
+                    <div class="user-meta">
+                        <div class="user-name"><%= user.name %></div>
+                        <div class="user-location">📍 <%= user.location %></div>
+                        <% if user.rating > 0 %>
+                        <div class="user-rating">★ <%= "%.1f" % user.rating %></div>
+                        <% end %>
+                    </div>
+                </div>
+                <% if user.bio.present? %>
+                <p class="user-bio"><%= truncate(user.bio, length: 100) %></p>
+                <% end %>
+                <div class="skills-row">
+                    <% user.teach_skills.first(3).each do |us| %>
+                        <span class="skill-tag <%= us.level %>"><%= us.skill.name %></span>
+                    <% end %>
+                </div>
+                <div class="user-footer">
+                    <div class="user-credits">
+                        <span>⏱</span>
+                        <span><%= user.credits_minutes %> min</span>
+                    </div>
+                    <div class="user-footer-actions">
+                        <%= link_to "Voir profil", user_path(user), class: "btn btn-sm" %>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    <% else %>
+        <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <h3>Aucun résultat</h3>
+            <p class="text-muted">Essayez avec d'autres termes de recherche</p>
+        </div>
+    <% end %>
+</section>
+
+<!-- VUE PROFIL -->
+<section id="view-profile" class="view-section">
+    <%= render "users/profile_card", user: current_user, editable: true %>
+
+    <div class="card">
+        <h3 class="history-title">Historique complet</h3>
+        <% swaps = current_user.all_swaps %>
+        <% if swaps.any? %>
+            <% swaps.each do |swap| %>
+            <% type = swap.proposer_id == current_user.id ? "given" : "received" %>
+            <div class="activity-item">
+                <div class="activity-icon <%= type %>"><%= type == "received" ? "←" : "→" %></div>
+                <div class="activity-content">
+                    <div class="activity-title"><%= swap.skill.name %></div>
+                    <div class="activity-meta">
+                        <%= type == "received" ? "De #{swap.proposer.name}" : "À #{swap.receiver.name}" %> •
+                        <%= swap.created_at.strftime("%d %b %Y") %> •
+                        <span class="status-<%= swap.status %>"><%= swap.status %></span>
+                    </div>
+                </div>
+                <div class="activity-value <%= type %>">
+                    <%= type == "received" ? "+#{swap.duration}" : "-#{swap.duration}" %> min
+                </div>
+            </div>
+            <% end %>
+        <% else %>
+            <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <p class="text-muted">Aucun swap pour l'instant.</p>
+            </div>
+        <% end %>
+    </div>
+</section>

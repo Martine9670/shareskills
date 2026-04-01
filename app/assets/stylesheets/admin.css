@@ -1,0 +1,234 @@
+/* ===========================
+   ADMIN — panel d'administration
+   =========================== */
+
+.admin-body {
+    background: var(--beige);
+}
+
+.admin-nav {
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-lg);
+    height: 60px;
+    color: var(--white);
+}
+
+.admin-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--white);
+}
+
+.admin-nav-brand .logo-icon {
+    background: var(--peach);
+    color: var(--charcoal);
+    border-color: var(--peach-dark);
+    box-shadow: none;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+}
+
+.admin-nav-links {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.admin-nav-link {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+}
+
+.admin-nav-link:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+}
+
+.admin-nav-right {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.admin-nav-right .btn {
+    font-size: 0.8125rem;
+    padding: 6px 12px;
+}
+
+/* Main */
+.admin-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+}
+
+/* En-tête de section */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+}
+
+.admin-header h1 {
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.admin-count {
+    background: var(--peach);
+    border: var(--border-thin);
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 1rem;
+}
+
+/* Tableau */
+.admin-table-wrapper {
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 4px 4px 0 rgba(45,52,54,0.1);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background: var(--beige);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    border-bottom: var(--border-thick);
+}
+
+.admin-table td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px dashed var(--gray-light);
+    font-size: 0.9375rem;
+    vertical-align: middle;
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+
+.admin-table tr:hover td { background: var(--cream); }
+
+.admin-user-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 600;
+}
+
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: var(--border-thin);
+    object-fit: cover;
+}
+
+.admin-actions { display: flex; gap: 6px; }
+
+/* Formulaire admin */
+.admin-form-card {
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    max-width: 600px;
+    box-shadow: 4px 4px 0 rgba(45,52,54,0.1);
+}
+
+/* Badge catégorie */
+.category-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: var(--border-thin);
+}
+
+.category-badge.tech     { background: var(--sky); }
+.category-badge.music    { background: var(--lavender); }
+.category-badge.cooking  { background: var(--peach); }
+.category-badge.design   { background: var(--mint); }
+.category-badge.language { background: var(--lemon); }
+.category-badge.other    { background: var(--beige); }
+
+/* Champs formulaire admin */
+.admin-field {
+    margin-bottom: var(--space-md);
+}
+
+.admin-label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.admin-input {
+    width: 100%;
+    border: var(--border-thick);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9375rem;
+    background: var(--white);
+    box-sizing: border-box;
+}
+
+.admin-input:focus {
+    outline: none;
+    box-shadow: 3px 3px 0 var(--charcoal);
+}
+
+textarea.admin-input {
+    resize: vertical;
+}
+
+.admin-radio-group {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.admin-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9375rem;
+}
+
+.admin-form-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+/* Lien admin dans la navbar principale */
+.nav-btn-admin {
+    background: var(--lavender) !important;
+    border-color: var(--lavender-dark) !important;
+}

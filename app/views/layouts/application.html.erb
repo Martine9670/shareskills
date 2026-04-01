@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap — Échange de Compétences</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+</head>
+<body>
+
+<% if logged_in? %>
+    <!-- Navigation desktop -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <%= link_to dashboard_path, class: "logo" do %>
+                <div class="logo-icon">🧬</div>
+                <span class="logo-text">ShareSkills</span>
+            <% end %>
+
+            <div class="nav-links">
+                <button class="nav-btn <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('dashboard')" id="nav-dashboard">Tableau de bord</button>
+                <button class="nav-btn <%= 'active' if params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('search')" id="nav-search">Rechercher</button>
+                <button class="nav-btn" onclick="showView('profile')" id="nav-profile">Mon Profil</button>
+                <% if current_user.is_admin? %>
+                    <%= link_to "⚙ Admin", admin_root_path, class: "nav-btn nav-btn-admin" %>
+                <% end %>
+            </div>
+
+            <div class="nav-right">
+                <div class="credit-badge">
+                    <span>⏱</span>
+                    <span><%= current_user.credits_minutes %> min</span>
+                </div>
+                <img src="<%= current_user.avatar_url %>" alt="<%= current_user.name %>" class="avatar"
+                     onclick="showView('profile')">
+                <%= button_to "Déconnexion", logout_path, method: :delete, class: "nav-btn" %>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation mobile -->
+    <nav class="mobile-nav">
+        <button class="mobile-btn <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('dashboard')" data-view="dashboard">
+            <span>📊</span><span>Accueil</span>
+        </button>
+        <button class="mobile-btn <%= 'active' if params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('search')" data-view="search">
+            <span>🔍</span><span>Rechercher</span>
+        </button>
+        <button class="mobile-btn" onclick="showView('profile')" data-view="profile">
+            <span>👤</span><span>Profil</span>
+        </button>
+    </nav>
+<% end %>
+
+    <!-- Flash messages -->
+    <% if flash[:notice] %>
+        <div class="flash flash-notice"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+        <div class="flash flash-alert"><%= flash[:alert] %></div>
+    <% end %>
+
+    <!-- Contenu principal -->
+    <% if logged_in? %>
+        <main class="container">
+            <%= yield %>
+        </main>
+    <% else %>
+        <main>
+            <%= yield %>
+        </main>
+    <% end %>
+
+    <%= render "layouts/footer" %>
+
+</body>
+</html>

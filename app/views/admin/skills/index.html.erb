@@ -1,0 +1,32 @@
+<div class="admin-header">
+    <h1>Compétences <span class="admin-count"><%= @skills.count %></span></h1>
+    <%= link_to "+ Nouvelle compétence", new_admin_skill_path, class: "btn btn-primary" %>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Utilisateurs</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @skills.each do |skill| %>
+            <tr>
+                <td><%= skill.name %></td>
+                <td><span class="category-badge <%= skill.category %>"><%= Skill::CATEGORIES[skill.category] %></span></td>
+                <td><%= skill.user_skills.count %></td>
+                <td class="admin-actions">
+                    <%= link_to "Modifier", edit_admin_skill_path(skill), class: "btn btn-sm" %>
+                    <%= button_to "Supprimer", admin_skill_path(skill), method: :delete,
+                        data: { confirm: "Supprimer #{skill.name} ?" },
+                        class: "btn btn-sm btn-danger" %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

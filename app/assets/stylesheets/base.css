@@ -1,0 +1,85 @@
+/* ===========================
+   BASE — variables, reset, typographie, layout
+   =========================== */
+
+:root {
+    /* Palette Pastel Rétro */
+    --cream: #faf8f5;
+    --beige: #f5f1e8;
+    --peach: #ffd4c7;
+    --peach-dark: #ffb5a7;
+    --mint: #c7f0db;
+    --mint-dark: #a8e6cf;
+    --lavender: #e2d5f8;
+    --lavender-dark: #d4c4f0;
+    --sky: #c5e3ec;
+    --sky-dark: #a8d8ea;
+    --lemon: #fff4bd;
+    --lemon-dark: #ffeaa7;
+    --charcoal: #2d3436;
+    --gray: #636e72;
+    --gray-light: #b2bec3;
+    --white: #ffffff;
+
+    /* Espacements rétro */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+
+    /* Bordures rétro */
+    --border-thin: 1px solid var(--charcoal);
+    --border-thick: 2px solid var(--charcoal);
+    --radius: 4px;
+    --radius-lg: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Typographie */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; margin-bottom: var(--space-md); }
+h3 { font-size: 1.25rem; }
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+main {
+    padding-top: 90px;
+    padding-bottom: var(--space-xl);
+    min-height: 100vh;
+}
+
+/* Animations globales */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

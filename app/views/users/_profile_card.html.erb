@@ -1,0 +1,142 @@
+<div class="profile-header">
+    <div class="profile-cover"></div>
+    <div class="profile-body">
+        <div class="profile-top">
+            <img src="<%= user.avatar_url %>" alt="<%= user.name %>" class="profile-avatar">
+            <% if local_assigns[:editable] %>
+            <div class="profile-actions">
+                <%= link_to edit_user_path(user), class: "btn" do %>
+                    <span>⚙</span> Modifier
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+
+        <div class="profile-info">
+            <h1 class="profile-name"><%= user.name %></h1>
+            <% if user.bio.present? %>
+            <p class="profile-bio"><%= user.bio %></p>
+            <% end %>
+            <div class="profile-meta">
+                <span>📍 <%= user.location %></span>
+                <% if user.rating > 0 %>
+                <span>⭐ <%= "%.1f" % user.rating %> (<%= user.swaps_count %> swaps)</span>
+                <% end %>
+                <span>⏱ <%= user.credits_minutes %> min</span>
+            </div>
+        </div>
+
+        <div class="skills-section">
+            <%# ── Enseigner ─────────────────────────────────────────────────── %>
+            <div class="skills-box">
+                <div class="skills-title"><span>🏆</span> Je peux enseigner</div>
+                <div class="skills-list">
+                    <% user.teach_skills.each do |us| %>
+                        <span class="skill-item teach">
+                            <%= us.skill.name %>
+                            <% if user == current_user %>
+                                <%= button_to "×", user_skill_path(us), method: :delete,
+                                    class: "skill-remove-btn",
+                                    data: { confirm: "Retirer #{us.skill.name} ?" } %>
+                            <% end %>
+                        </span>
+                    <% end %>
+
+                    <% if user == current_user %>
+                        <button class="skill-item add-btn"
+                                onclick="toggleSkillForm('form-teach')"
+                                type="button">+ Ajouter</button>
+                    <% end %>
+                </div>
+
+                <% if user == current_user %>
+                <div id="form-teach" class="skill-add-form hidden">
+                    <%= form_with url: user_skills_path, method: :post do |f| %>
+                        <%= hidden_field_tag "user_skill[skill_type]", "teach" %>
+                        <div class="skill-add-row">
+                            <select name="user_skill[skill_id]" class="form-select skill-select">
+                                <option value="">Choisir une compétence…</option>
+                                <% Skill.order(:category, :name).group_by(&:category).each do |cat, skills| %>
+                                    <optgroup label="<%= Skill::CATEGORIES[cat] %>">
+                                        <% skills.each do |skill| %>
+                                            <% next if user.teach_skills.map(&:skill_id).include?(skill.id) %>
+                                            <option value="<%= skill.id %>"><%= skill.name %></option>
+                                        <% end %>
+                                    </optgroup>
+                                <% end %>
+                            </select>
+                            <select name="user_skill[level]" class="form-select skill-select">
+                                <option value="beginner">Débutant</option>
+                                <option value="intermediate">Intermédiaire</option>
+                                <option value="expert" selected>Expert</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">✓</button>
+                            <button type="button" class="btn btn-sm"
+                                    onclick="toggleSkillForm('form-teach')">✗</button>
+                        </div>
+                    <% end %>
+                </div>
+                <% end %>
+            </div>
+
+            <%# ── Apprendre ─────────────────────────────────────────────────── %>
+            <div class="skills-box">
+                <div class="skills-title"><span>🎯</span> Je veux apprendre</div>
+                <div class="skills-list">
+                    <% user.learn_skills.each do |us| %>
+                        <span class="skill-item learn">
+                            <%= us.skill.name %>
+                            <% if user == current_user %>
+                                <%= button_to "×", user_skill_path(us), method: :delete,
+                                    class: "skill-remove-btn",
+                                    data: { confirm: "Retirer #{us.skill.name} ?" } %>
+                            <% end %>
+                        </span>
+                    <% end %>
+
+                    <% if user == current_user %>
+                        <button class="skill-item add-btn"
+                                onclick="toggleSkillForm('form-learn')"
+                                type="button">+ Ajouter</button>
+                    <% end %>
+                </div>
+
+                <% if user == current_user %>
+                <div id="form-learn" class="skill-add-form hidden">
+                    <%= form_with url: user_skills_path, method: :post do |f| %>
+                        <%= hidden_field_tag "user_skill[skill_type]", "learn" %>
+                        <div class="skill-add-row">
+                            <select name="user_skill[skill_id]" class="form-select skill-select">
+                                <option value="">Choisir une compétence…</option>
+                                <% Skill.order(:category, :name).group_by(&:category).each do |cat, skills| %>
+                                    <optgroup label="<%= Skill::CATEGORIES[cat] %>">
+                                        <% skills.each do |skill| %>
+                                            <% next if user.learn_skills.map(&:skill_id).include?(skill.id) %>
+                                            <option value="<%= skill.id %>"><%= skill.name %></option>
+                                        <% end %>
+                                    </optgroup>
+                                <% end %>
+                            </select>
+                            <select name="user_skill[level]" class="form-select skill-select">
+                                <option value="beginner" selected>Débutant</option>
+                                <option value="intermediate">Intermédiaire</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">✓</button>
+                            <button type="button" class="btn btn-sm"
+                                    onclick="toggleSkillForm('form-learn')">✗</button>
+                        </div>
+                    <% end %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSkillForm(id) {
+    const form = document.getElementById(id);
+    form.classList.toggle('hidden');
+}
+</script>
