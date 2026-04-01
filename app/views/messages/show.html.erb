@@ -1,0 +1,58 @@
+<div class="conversation-header">
+    <%= link_to "← Messages", messages_path, class: "btn btn-sm" %>
+    <div class="conversation-partner">
+        <img src="<%= @partner.avatar_url %>" class="inbox-avatar" alt="">
+        <div>
+            <strong><%= @partner.name %></strong>
+            <span class="text-muted">· <%= @partner.location %></span>
+        </div>
+    </div>
+    <%= link_to "Voir le profil", user_path(@partner), class: "btn btn-sm" %>
+</div>
+
+<div class="conversation-thread" id="thread">
+    <% @messages.each do |msg| %>
+        <% mine = msg.sender_id == current_user.id %>
+        <div class="bubble-wrap <%= mine ? 'bubble-wrap--mine' : 'bubble-wrap--theirs' %>">
+            <div class="bubble <%= mine ? 'bubble--mine' : 'bubble--theirs' %>">
+                <% if msg.subject.present? %>
+                    <div class="bubble-subject"><%= msg.subject %></div>
+                <% end %>
+                <div class="bubble-body"><%= simple_format(msg.body) %></div>
+                <% if msg.proposed_at.present? %>
+                    <div class="bubble-rdv">📅 RDV proposé : <%= msg.proposed_at.strftime("%d %b %Y à %Hh%M") %></div>
+                <% end %>
+                <div class="bubble-time"><%= msg.created_at.strftime("%d %b · %H:%M") %></div>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<!-- Formulaire de réponse -->
+<div class="conversation-reply">
+    <%= form_with url: messages_path, method: :post do |f| %>
+        <%= f.hidden_field :message, name: "message[receiver_id]", value: @partner.id %>
+        <div class="reply-fields">
+            <%= f.text_field :subject, name: "message[subject]",
+                placeholder: "Sujet (ex: Proposition de RDV)",
+                class: "form-input reply-subject" %>
+            <div class="reply-rdv-row">
+                <label class="reply-rdv-label">📅 Proposer un RDV :</label>
+                <%= f.datetime_local_field :proposed_at, name: "message[proposed_at]",
+                    class: "form-input reply-date" %>
+            </div>
+            <div class="reply-bottom">
+                <%= f.text_area :body, name: "message[body]",
+                    placeholder: "Votre message…",
+                    class: "form-input reply-textarea",
+                    rows: 3 %>
+                <%= f.submit "Envoyer →", class: "btn btn-primary" %>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<script>
+    // Scroll en bas du thread
+    document.getElementById('thread').scrollTop = 9999;
+</script>

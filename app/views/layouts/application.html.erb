@@ -23,9 +23,13 @@
             <% end %>
 
             <div class="nav-links">
-                <button class="nav-btn <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('dashboard')" id="nav-dashboard">Tableau de bord</button>
-                <button class="nav-btn <%= 'active' if params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('search')" id="nav-search">Rechercher</button>
-                <button class="nav-btn" onclick="showView('profile')" id="nav-profile">Mon Profil</button>
+                <%= link_to "Tableau de bord", dashboard_path, id: "nav-dashboard", class: "nav-btn #{'active' unless params[:search].present? || params[:category].present? || params[:view].present? || controller_name == 'messages'}", onclick: "if(document.getElementById('view-dashboard')){event.preventDefault();showView('dashboard')}" %>
+                <%= link_to "Rechercher", dashboard_path(view: "search"), id: "nav-search", class: "nav-btn #{'active' if params[:search].present? || params[:category].present? || params[:view] == 'search'}", onclick: "if(document.getElementById('view-search')){event.preventDefault();showView('search')}" %>
+                <%= link_to "Mon Profil", dashboard_path(view: "profile"), id: "nav-profile", class: "nav-btn #{'active' if controller_name == 'users' || params[:view] == 'profile'}", onclick: "if(document.getElementById('view-profile')){event.preventDefault();showView('profile')}" %>
+                <% unread = Message.unread_for(current_user).count %>
+                <%= link_to messages_path, class: "nav-btn #{'active' if controller_name == 'messages'}" do %>
+                    ✉ Messages<% if unread > 0 %><span class="nav-badge"><%= unread %></span><% end %>
+                <% end %>
                 <% if current_user.is_admin? %>
                     <%= link_to "⚙ Admin", admin_root_path, class: "nav-btn nav-btn-admin" %>
                 <% end %>
@@ -45,15 +49,18 @@
 
     <!-- Navigation mobile -->
     <nav class="mobile-nav">
-        <button class="mobile-btn <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('dashboard')" data-view="dashboard">
+        <%= link_to dashboard_path, class: "mobile-btn #{'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' || controller_name == 'messages'}", onclick: "if(document.getElementById('view-dashboard')){event.preventDefault();showView('dashboard')}" do %>
             <span>📊</span><span>Accueil</span>
-        </button>
-        <button class="mobile-btn <%= 'active' if params[:search].present? || params[:category].present? || params[:view] == 'search' %>" onclick="showView('search')" data-view="search">
+        <% end %>
+        <%= link_to dashboard_path(view: "search"), class: "mobile-btn #{'active' if params[:search].present? || params[:category].present? || params[:view] == 'search'}", onclick: "if(document.getElementById('view-search')){event.preventDefault();showView('search')}" do %>
             <span>🔍</span><span>Rechercher</span>
-        </button>
-        <button class="mobile-btn" onclick="showView('profile')" data-view="profile">
+        <% end %>
+        <%= link_to dashboard_path(view: "profile"), class: "mobile-btn #{'active' if controller_name == 'users' || params[:view] == 'profile'}", onclick: "if(document.getElementById('view-profile')){event.preventDefault();showView('profile')}" do %>
             <span>👤</span><span>Profil</span>
-        </button>
+        <% end %>
+        <%= link_to messages_path, class: "mobile-btn #{'active' if controller_name == 'messages'}" do %>
+            <span>✉</span><span>Messages</span>
+        <% end %>
     </nav>
 <% end %>
 

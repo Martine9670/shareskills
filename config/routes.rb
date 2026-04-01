@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   # Swaps
   resources :swaps, only: [:create, :update]
 
+  # Messagerie
+  resources :messages, only: [:index, :create]
+  get "messages/:id", to: "messages#show", as: :message
+
   # Panel admin
   namespace :admin do
     root to: "users#index"

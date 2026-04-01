@@ -4,8 +4,10 @@ class User < ApplicationRecord
 
   has_many :user_skills, dependent: :destroy
   has_many :skills, through: :user_skills
-  has_many :proposed_swaps, class_name: "Swap", foreign_key: :proposer_id, dependent: :destroy
-  has_many :received_swaps, class_name: "Swap", foreign_key: :receiver_id, dependent: :destroy
+  has_many :proposed_swaps,  class_name: "Swap",    foreign_key: :proposer_id,  dependent: :destroy
+  has_many :received_swaps,  class_name: "Swap",    foreign_key: :receiver_id,  dependent: :destroy
+  has_many :sent_messages,   class_name: "Message", foreign_key: :sender_id,    dependent: :destroy
+  has_many :received_messages, class_name: "Message", foreign_key: :receiver_id, dependent: :destroy
 
   validates :name,     presence: true
   validates :email,    presence: true, uniqueness: { case_sensitive: false },

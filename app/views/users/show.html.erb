@@ -2,6 +2,10 @@
 
 <% unless @user == current_user %>
 <div class="card">
+    <%= link_to "✉ Envoyer un message", message_path(@user), class: "btn btn-primary" %>
+</div>
+
+<div class="card">
     <h3 class="history-title">Proposer un Swap</h3>
     <% teach = @user.teach_skills %>
     <% if teach.any? %>

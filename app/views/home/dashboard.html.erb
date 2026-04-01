@@ -1,5 +1,5 @@
 <!-- VUE DASHBOARD -->
-<section id="view-dashboard" class="view-section <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' %>">
+<section id="view-dashboard" class="view-section <%= 'active' unless params[:search].present? || params[:category].present? || params[:view] == 'search' || params[:view] == 'profile' %>">
     <div class="dashboard-intro">
         <h1 class="dashboard-title">Bonjour, <%= current_user.name.split.first %> !</h1>
         <p class="dashboard-subtitle">Vous avez <strong><%= current_user.credits_minutes %> minutes</strong> de crédits à utiliser</p>
@@ -156,7 +156,7 @@
 </section>
 
 <!-- VUE PROFIL -->
-<section id="view-profile" class="view-section">
+<section id="view-profile" class="view-section <%= 'active' if params[:view] == 'profile' %>">
     <%= render "users/profile_card", user: current_user, editable: true %>
 
     <div class="card">

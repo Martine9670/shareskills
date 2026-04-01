@@ -1,0 +1,214 @@
+/* ===========================
+   MESSAGES — messagerie entre users
+   =========================== */
+
+.inbox-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.inbox-badge {
+    background: var(--peach);
+    border: var(--border-thin);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.inbox-badge--sm {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+}
+
+.nav-badge {
+    background: var(--peach-dark);
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+.inbox-list {
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 4px 4px 0 rgba(45,52,54,0.1);
+}
+
+.inbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-bottom: 1px dashed var(--gray-light);
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: background 0.15s ease;
+}
+
+.inbox-item:last-child { border-bottom: none; }
+.inbox-item:hover      { background: var(--cream); }
+
+.inbox-item--unread {
+    background: var(--lemon);
+}
+
+.inbox-item--unread:hover { background: var(--lemon-dark); }
+
+.inbox-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: var(--border-thick);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.inbox-content { flex: 1; min-width: 0; }
+
+.inbox-name {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.inbox-preview {
+    font-size: 0.875rem;
+    color: var(--gray);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inbox-date {
+    font-size: 0.8125rem;
+    color: var(--gray-light);
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+}
+
+/* Conversation */
+.conversation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    box-shadow: 3px 3px 0 rgba(45,52,54,0.1);
+}
+
+.conversation-partner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+}
+
+.conversation-thread {
+    background: var(--beige);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    max-height: 50vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.bubble-wrap { display: flex; }
+.bubble-wrap--mine   { justify-content: flex-end; }
+.bubble-wrap--theirs { justify-content: flex-start; }
+
+.bubble {
+    max-width: 70%;
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-md);
+}
+
+.bubble--mine   { background: var(--lavender); }
+.bubble--theirs { background: var(--white); }
+
+.bubble-subject {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.bubble-body { font-size: 0.9375rem; line-height: 1.5; }
+
+.bubble-rdv {
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: var(--lemon);
+    border: var(--border-thin);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.bubble-time {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 4px;
+    text-align: right;
+}
+
+/* Formulaire de réponse */
+.conversation-reply {
+    background: var(--white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    box-shadow: 4px 4px 0 rgba(45,52,54,0.1);
+}
+
+.reply-fields { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.reply-subject { font-size: 0.9375rem; }
+
+.reply-rdv-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.reply-rdv-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.reply-date { flex: 1; min-width: 200px; }
+
+.reply-bottom {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: flex-end;
+}
+
+.reply-textarea { flex: 1; resize: none; }
+
+@media (max-width: 768px) {
+    .conversation-header { flex-wrap: wrap; }
+    .bubble { max-width: 90%; }
+    .reply-bottom { flex-direction: column; align-items: stretch; }
+}
